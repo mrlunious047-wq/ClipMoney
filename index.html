@@ -1,1 +1,749 @@
-not
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClipMoney - Monetize Your Content</title>
+    <style>
+        :root {
+            --primary-green: #00ff88;
+            --dark-green: #006633;
+            --light-green: #33ff99;
+            --black: #121212;
+            --dark-gray: #1e1e1e;
+            --light-gray: #333333;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--dark-gray);
+            padding: 15px 0;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--white);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-green);
+        }
+        
+        .auth-buttons button {
+            background-color: transparent;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .auth-buttons button:hover {
+            background-color: var(--primary-green);
+            color: var(--black);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 50px 0;
+            min-height: calc(100vh - 150px);
+        }
+        
+        /* Registration Form Styles */
+        .form-container {
+            background-color: var(--dark-gray);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-green);
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--light-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 16px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        
+        .optional {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-green);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--light-green);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(to right, var(--dark-gray), var(--black));
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-section h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+        
+        .hero-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .start-btn {
+            background-color: var(--primary-green);
+            color: var(--black);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .start-btn:hover {
+            background-color: var(--light-green);
+        }
+        
+        .creators-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--primary-green);
+            text-align: center;
+        }
+        
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .creator-card {
+            background-color: var(--dark-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .creator-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .creator-name {
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .earn-section {
+            background-color: var(--dark-gray);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+        }
+        
+        .earn-section h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        .earn-section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        /* Verification Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--dark-gray);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal h2 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        .modal p {
+            margin-bottom: 20px;
+        }
+        
+        .verification-code {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .verification-code input {
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            text-align: center;
+            font-size: 20px;
+            background-color: var(--light-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            color: var(--white);
+        }
+        
+        /* Connect Modal */
+        .connect-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .connect-btn {
+            background-color: var(--primary-green);
+            color: var(--black);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .connect-btn:hover {
+            background-color: var(--light-green);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-gray);
+            padding: 30px 0;
+            border-top: 2px solid var(--primary-green);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary-green);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .auth-buttons button {
+                margin: 0 5px;
+            }
+            
+            .hero-section h1 {
+                font-size: 28px;
+            }
+            
+            .hero-section p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Clip<span>Money</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" id="nav-home">Home</a></li>
+                        <li><a href="#" id="nav-analytics" style="display:none;">Analytics</a></li>
+                        <li><a href="#" id="nav-campaigns" style="display:none;">Campaigns</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button id="login-btn">Sign In</button>
+                    <button id="register-btn">Register</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Registration Form -->
+            <div id="registration-form" class="form-container">
+                <h2 class="form-title">Create Your Account</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tiktok">TikTok Username <span class="optional">(optional)</span></label>
+                        <input type="text" id="tiktok" name="tiktok">
+                    </div>
+                    <div class="form-group">
+                        <label for="instagram">Instagram Username <span class="optional">(optional)</span></label>
+                        <input type="text" id="instagram" name="instagram">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password (8 characters minimum)</label>
+                        <input type="password" id="password" name="password" minlength="8" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="switch-to-login">Sign In</a></p>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="form-container" style="display: none;">
+                <h2 class="form-title">Sign In to Your Account</h2>
+                <form id="signin-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign In</button>
+                </form>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+                </div>
+            </div>
+
+            <!-- Dashboard (Visible after login) -->
+            <div id="dashboard" class="dashboard">
+                <div class="hero-section">
+                    <h1>Monetize Your Content with ClipMoney</h1>
+                    <p>Turn your viral clips into revenue streams. Join thousands of creators who are earning with their content.</p>
+                    <button class="start-btn" id="start-here-btn">Start Here</button>
+                </div>
+
+                <div class="creators-section">
+                    <h2 class="section-title">Featured Creators</h2>
+                    <div class="creators-grid">
+                        <div class="creator-card">
+                            <img src="https://via.placeholder.com/300x200/00ff88/121212?text=IshowSpeed" alt="IshowSpeed" class="creator-img">
+                            <div class="creator-name">IshowSpeed</div>
+                        </div>
+                        <div class="creator-card">
+                            <img src="https://via.placeholder.com/300x200/00ff88/121212?text=Creator2" alt="Creator 2" class="creator-img">
+                            <div class="creator-name">Kai Cenat</div>
+                        </div>
+                        <div class="creator-card">
+                            <img src="https://via.placeholder.com/300x200/00ff88/121212?text=Creator3" alt="Creator 3" class="creator-img">
+                            <div class="creator-name">Adin Ross</div>
+                        </div>
+                        <div class="creator-card">
+                            <img src="https://via.placeholder.com/300x200/00ff88/121212?text=Creator4" alt="Creator 4" class="creator-img">
+                            <div class="creator-name">xQc</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="earn-section">
+                    <h2>How You Can Earn with Clipping</h2>
+                    <p>ClipMoney helps content creators monetize their most engaging moments. Here's how it works:</p>
+                    <p>1. Connect your social media accounts (TikTok, Instagram, YouTube)</p>
+                    <p>2. Our AI identifies your most viral-worthy clips</p>
+                    <p>3. We help you optimize and distribute these clips across platforms</p>
+                    <p>4. Earn revenue through ads, sponsorships, and platform partnerships</p>
+                    <p>Top creators on our platform earn $5,000+ monthly by leveraging their existing content in new ways.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verification-modal" class="modal">
+        <div class="modal-content">
+            <h2>Verify Your Email</h2>
+            <p>We've sent a verification code to your email address. Please enter it below:</p>
+            <div class="verification-code">
+                <input type="text" maxlength="1" id="code1">
+                <input type="text" maxlength="1" id="code2">
+                <input type="text" maxlength="1" id="code3">
+                <input type="text" maxlength="1" id="code4">
+                <input type="text" maxlength="1" id="code5">
+                <input type="text" maxlength="1" id="code6">
+            </div>
+            <button class="submit-btn" id="verify-btn">Verify</button>
+            <p style="margin-top: 15px;"><a href="#" id="resend-code">Resend Code</a></p>
+        </div>
+    </div>
+
+    <!-- Connect Modal -->
+    <div id="connect-modal" class="modal">
+        <div class="modal-content">
+            <h2>Connect Your Account</h2>
+            <p>To get started, connect your social media account:</p>
+            <div class="connect-options">
+                <button class="connect-btn" id="connect-instagram">Connect Instagram</button>
+                <button class="connect-btn" id="connect-tiktok">Connect TikTok</button>
+            </div>
+            <p style="margin-top: 20px;">We'll use Google to securely connect your account.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ClipMoney</h3>
+                    <p>Helping creators monetize their content through strategic clipping and distribution.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ClipMoney. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const registrationForm = document.getElementById('registration-form');
+        const loginForm = document.getElementById('login-form');
+        const dashboard = document.getElementById('dashboard');
+        const registerForm = document.getElementById('register-form');
+        const signinForm = document.getElementById('signin-form');
+        const verificationModal = document.getElementById('verification-modal');
+        const connectModal = document.getElementById('connect-modal');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const startHereBtn = document.getElementById('start-here-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+        const resendCode = document.getElementById('resend-code');
+        const connectInstagram = document.getElementById('connect-instagram');
+        const connectTiktok = document.getElementById('connect-tiktok');
+        const navAnalytics = document.getElementById('nav-analytics');
+        const navCampaigns = document.getElementById('nav-campaigns');
+
+        // Switch between registration and login forms
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registrationForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            registrationForm.style.display = 'block';
+        });
+
+        loginBtn.addEventListener('click', function() {
+            registrationForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            dashboard.style.display = 'none';
+        });
+
+        registerBtn.addEventListener('click', function() {
+            loginForm.style.display = 'none';
+            registrationForm.style.display = 'block';
+            dashboard.style.display = 'none';
+        });
+
+        // Registration form submission
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Show verification modal
+            verificationModal.style.display = 'flex';
+        });
+
+        // Login form submission
+        signinForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // For demo purposes, we'll just show the dashboard
+            showDashboard();
+        });
+
+        // Verify email code
+        verifyBtn.addEventListener('click', function() {
+            // For demo purposes, we'll just show the dashboard
+            verificationModal.style.display = 'none';
+            showDashboard();
+        });
+
+        // Resend verification code
+        resendCode.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Verification code has been resent to your email.');
+        });
+
+        // Start Here button
+        startHereBtn.addEventListener('click', function() {
+            connectModal.style.display = 'flex';
+        });
+
+        // Connect Instagram
+        connectInstagram.addEventListener('click', function() {
+            alert('Connecting to Instagram via Google...');
+            connectModal.style.display = 'none';
+        });
+
+        // Connect TikTok
+        connectTiktok.addEventListener('click', function() {
+            alert('Connecting to TikTok via Google...');
+            connectModal.style.display = 'none';
+        });
+
+        // Show dashboard function
+        function showDashboard() {
+            registrationForm.style.display = 'none';
+            loginForm.style.display = 'none';
+            dashboard.style.display = 'block';
+            navAnalytics.style.display = 'block';
+            navCampaigns.style.display = 'block';
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === verificationModal) {
+                verificationModal.style.display = 'none';
+            }
+            if (e.target === connectModal) {
+                connectModal.style.display = 'none';
+            }
+        });
+
+        // Auto-focus next input in verification code
+        const codeInputs = document.querySelectorAll('.verification-code input');
+        codeInputs.forEach((input, index) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === 1 && index < codeInputs.length - 1) {
+                    codeInputs[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                    codeInputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
